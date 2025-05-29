@@ -1,9 +1,13 @@
 {
   "pages": [
-    "pages/index/index"
+    "pages/main/main",
+    "pages/index/index",
+    "pages/status/status",
+    "pages/enter/enter"
   ],
   "subPackages": [],
   "window": {
+    "navigationStyle": "custom",
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",
     "navigationBarBackgroundColor": "#F8F8F8",
