@@ -2,17 +2,13 @@
  * @Author: chenyourong
  * @Date: 2025-05-27 16:50:32
  * @LastEditors: chenyourong
- * @LastEditTime: 2025-05-29 17:58:14
+ * @LastEditTime: 2025-05-29 18:10:51
  * @Description: 
  * @FilePath: /scanCode/pages/index/index.vue
 -->
 <template>
   <div class="login">
-    <view class="custom-nav-bar">
-         <text class="back-button" @click="goBack">返回</text>
-         <text class="title">标题</text>
-         <!-- 这里可以添加其他导航栏元素 -->
-       </view>
+    <NavBar :backBtn="true" title="发现" background="#f5f5f5" color="#333"></NavBar>
     <div class="header">
       <image src="../../static/header.png" mode="aspectFit"  alt="">
     </div>

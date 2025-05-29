@@ -176,16 +176,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
 var request = _interopRequireWildcard(__webpack_require__(/*! @/api/api.js */ 19));
 var _md = _interopRequireDefault(__webpack_require__(/*! @/utils/md5.js */ 56));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _getRequireWildcardCache() {if (typeof WeakMap !== "function") return null;var cache = new WeakMap();_getRequireWildcardCache = function _getRequireWildcardCache() {return cache;};return cache;}function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;}if (obj === null || typeof obj !== "object" && typeof obj !== "function") {return { default: obj };}var cache = _getRequireWildcardCache();if (cache && cache.has(obj)) {return cache.get(obj);}var newObj = {};var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) {var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;if (desc && (desc.get || desc.set)) {Object.defineProperty(newObj, key, desc);} else {newObj[key] = obj[key];}}}newObj.default = obj;if (cache) {cache.set(obj, newObj);}return newObj;} //
-//
-//
-//
-//
 //
 //
 //
@@ -235,7 +227,11 @@ var _default = { data: function data() {return { phone: "", passwd: "", code: ""
         //   }
         // })
       }, fail: function fail(err) {console.error(" 登录失败:", err);uni.showToast({ title: "登录失败", icon: "none" });} });}, methods: { onSubmit: function onSubmit() {// 简单的表单验证
-      if (!this.phone || !this.passwd) {uni.showToast({ title: "账号和密码不能为空", icon: "none" });return;}request.login({ code: this.code, phone: this.phone, passwd: _md.default.hex_md5(_md.default.hex_md5(this.passwd)) }).then(function (res) {var data = res.data,code = res.code;if (code === 0) {uni.setStorageSync('token', data.token);
+      if (!this.phone || !this.passwd) {uni.showToast({ title: "账号和密码不能为空", icon: "none" });return;}request.login({ code: this.code, phone: this.phone, passwd: _md.default.hex_md5(_md.default.hex_md5(this.passwd)) }).
+      then(function (res) {var
+        data = res.data,code = res.code;
+        if (code === 0) {
+          uni.setStorageSync('token', data.token);
           uni.showToast({
             title: "登录成功",
             icon: "success" });
