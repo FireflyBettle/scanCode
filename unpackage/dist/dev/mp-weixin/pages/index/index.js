@@ -141,20 +141,19 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-//
-//
-//
-//
-//
-//
-//
-//
-//
+var navbar = function navbar() {
+  __webpack_require__.e(/*! require.ensure | component/navbar/navbar */ "component/navbar/navbar").then((function () {
+    return resolve(__webpack_require__(/*! @/component/navbar/navbar.vue */ 44));
+  }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+};
 var _default = {
   data: function data() {
     return {
       title: 'Hello'
     };
+  },
+  components: {
+    navbar: navbar
   },
   onLoad: function onLoad() {
     uni.login({

@@ -1,6 +1,6 @@
 <template>
 	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
+<navbar :title="title" :color="color" :size="size" :titleShow="titleShow" :backShow="backShow" :background="background"></navbar>		<image class="logo" src="/static/logo.png"></image>
 		<view class="text-area">
 			<text class="title">{{title}}</text>
 		</view>
@@ -8,33 +8,34 @@
 </template>
 
 <script>
-	export default {
+import navbar from '@/component/navbar/navbar.vue';	export default {
 		data() {
 			return {
 				title: 'Hello'
 			}
 		},
+		components:{ navbar },
 		onLoad() {
-			uni.login({ 
-				provider: 'weixin', // 使用微信登录 
-				success: (res) => {
-				  console.log(' 获取code:', res.code);  // 获取临时登录凭证 
-				  // 发送code到后端换取openid/token 
-				  // uni.request({ 
-				  //   url: 'https://your-api.com/login', 
-				  //   method: 'POST',
-				  //   data: { code: res.code  },
-				  //   success: (apiRes) => {
-				  //     uni.setStorageSync('token',  apiRes.data.token)  // 存储token 
-				  //     uni.showToast({  title: '登录成功' })
-				  //   }
-				  // })
-				},
-				fail: (err) => {
-				  console.error(' 登录失败:', err);
-				  uni.showToast({  title: '登录失败', icon: 'none' })
-				}
-			  })
+		uni.login({ 
+		    provider: 'weixin', // 使用微信登录 
+		    success: (res) => {
+		      console.log(' 获取code:', res.code);  // 获取临时登录凭证 
+		      // 发送code到后端换取openid/token 
+		      // uni.request({ 
+		      //   url: 'https://your-api.com/login', 
+		      //   method: 'POST',
+		      //   data: { code: res.code  },
+		      //   success: (apiRes) => {
+		      //     uni.setStorageSync('token',  apiRes.data.token)  // 存储token 
+		      //     uni.showToast({  title: '登录成功' })
+		      //   }
+		      // })
+		    },
+		    fail: (err) => {
+		      console.error(' 登录失败:', err);
+		      uni.showToast({  title: '登录失败', icon: 'none' })
+		    }
+		  })
 		},
 		methods: {
 
