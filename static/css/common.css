@@ -1,0 +1,13 @@
+/* 去除默认的内外边距 */ 
+* { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
+} 
+
+/* 设置全局字体 */ 
+body { 
+  font-family: Arial, sans-serif; 
+  font-size: 14px; 
+  color: #333; 
+} 

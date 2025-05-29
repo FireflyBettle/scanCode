@@ -1,0 +1,10 @@
+{
+    "id": "lightpink-CustomNavigationBar",
+    "name": "各种自定义导航栏",
+    "version": "3.0",
+    "description": "自定义导航栏, 兼容H5 app , 可设置背景色 渐变色 背景图 自定义按钮,H5 App沉浸式 ",
+    "keywords": [
+        "自定义导航栏",
+        "渐变导航栏各种"
+    ]
+}

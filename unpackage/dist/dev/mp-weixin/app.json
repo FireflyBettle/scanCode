@@ -1,6 +1,9 @@
 {
   "pages": [
-    "pages/index/index"
+    "pages/index/index",
+    "pages/main/main",
+    "pages/status/status",
+    "pages/enter/enter"
   ],
   "subPackages": [],
   "window": {
@@ -9,5 +12,7 @@
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
   },
-  "usingComponents": {}
+  "usingComponents": {
+    "custom-navbar": "/components/custom-navbar"
+  }
 }

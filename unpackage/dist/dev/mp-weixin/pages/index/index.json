@@ -1,6 +1,5 @@
 {
-  "navigationBarTitleText": "uni-app",
-  "usingComponents": {
-    "navbar": "/component/navbar/navbar"
-  }
+  "navigationBarTitleText": "企福通",
+  "navigationStyle": "custom",
+  "usingComponents": {}
 }

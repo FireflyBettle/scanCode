@@ -5,6 +5,12 @@ import Vue from 'vue'
 import './uni.promisify.adaptor'
 Vue.config.productionTip = false
 App.mpType = 'app'
+
+// main.js  
+import CustomNavbar from '@/components/custom-navbar.vue' 
+Vue.component('custom-navbar',  CustomNavbar)
+
+
 const app = new Vue({
   ...App
 })
