@@ -27,13 +27,35 @@
 .navbar-container.data-v-12b8da7e {
   width: 100%;
 }
+.navbar-container .tab.data-v-12b8da7e {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 34rpx;
+}
+.navbar-container .tab .title.data-v-12b8da7e {
+  font-size: 34rpx;
+}
 .navbar-container .bg-image.data-v-12b8da7e {
   position: fixed;
 }
 .navbar-container image.data-v-12b8da7e {
   width: 100%;
 }
+.back-btn.data-v-12b8da7e {
+  display: flex;
+}
 .back-btn image.data-v-12b8da7e {
   width: 18rpx;
   height: 34rpx;
+  margin-right: 24rpx;
 }
+.logo.data-v-12b8da7e {
+  display: flex;
+  width: 110rpx;
+  margin-right: 24rpx;
+}
+.logo image.data-v-12b8da7e {
+  width: 100%;
+}
+

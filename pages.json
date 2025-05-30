@@ -1,25 +1,17 @@
 {
   "pages": [
-	  {
-	    "path": "pages/index/index",
-	    "style": {
-	      "navigationBarTitleText": "企福通",
-	      "navigationStyle": "custom"
-	    }
-	  },
     {
       "path": "pages/main/main",
       "style": {
         "navigationBarTitleText": "企福通"
       }
     },
-    // {
-    //   "path": "pages/index/index",
-    //   "style": {
-    //     "navigationBarTitleText": "企福通",
-    //     "navigationStyle": "custom"
-    //   }
-    // },
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "企福通"
+      }
+    },
     {
       "path": "pages/status/status",
       "style": {
@@ -34,7 +26,7 @@
     }
   ],
   "globalStyle": {
-    // "navigationStyle": "custom",
+    "navigationStyle": "custom",
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",
     "navigationBarBackgroundColor": "#F8F8F8",

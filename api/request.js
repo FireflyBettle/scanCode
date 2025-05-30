@@ -2,7 +2,7 @@
  * @Author: chenyourong
  * @Date: 2022-09-26 17:07:46
  * @LastEditors: chenyourong
- * @LastEditTime: 2025-05-29 15:55:03
+ * @LastEditTime: 2025-05-30 17:31:41
  * @Description: 
  * @FilePath: /scanCode/api/request.js
  */
@@ -24,6 +24,7 @@ export function service(options = {}) {
 		'content-type': 'application/json',//默认请求头，可不写
 		'x-token': `${token}` //Bearer ，你请求数据需要的自定义请求头（令牌）
 	};
+  options.timeout = 15000;
 	
 	if (!options.noShowLoading) {
 		uni.showLoading({
@@ -37,16 +38,16 @@ export function service(options = {}) {
 		options.success = (res) => {
       uni.hideLoading();
       if (res.data.code === 1003) {
-        uni.showToast({
-          title: res.data.msg,
-          icon: 'none',
-          duration: 2000
-        })
         setTimeout(() => {
           uni.reLaunch({
             url: "/pages/index/index",
           });
         }, 1000);
+        return uni.showToast({
+          title: res.data.msg,
+          icon: 'none',
+          duration: 2000
+        })
       }
       if (res.data.code != 0) return uni.showToast({
         title: res.data.msg,
@@ -71,7 +72,7 @@ export function service(options = {}) {
 			uni.showToast({
 				title: '请求超时',
 				icon: 'none',
-				duration: 15000
+				duration: 2000
 			})
 			rejected(err); //请求失败时返回错误信息
 		}

@@ -2,34 +2,46 @@
  * @Author: chenyourong
  * @Date: 2025-05-28 16:25:26
  * @LastEditors: chenyourong
- * @LastEditTime: 2025-05-29 15:36:43
+ * @LastEditTime: 2025-05-30 16:45:14
  * @Description: 
  * @FilePath: /scanCode/pages/enter/enter.vue
 -->
 <template>
   <div class="entering">
-    <div class="title">优惠券</div>
-    <div class="input">
-      <view class="input-item">
-        <input v-model="couponCode" placeholder="请输入优惠券码" />
-      </view>
-    </div>
-    <div class="button" @click="submit">确认</div>
+    <custom-navbar title="录入核销" />
+    <scroll-view scroll-y class="scroll-view" :style="{ height: scrollHeight }">
+      <div class="container">
+        <div class="title">优惠券</div>
+        <div class="input">
+          <view class="input-item">
+            <input v-model="couponCode" placeholder="请输入优惠券码" />
+          </view>
+        </div>
+        <div class="button" @click="submit">确认</div>
+      </div>
+    </scroll-view>
   </div>
 </template>
 
 <script>
-import * as request from "@/api/api.js";
 export default {
   data() {
     return {
       couponCode: "",
+      scrollHeight: 500, // 根据窗口动态计算更佳
     };
   },
   onLoad(options) {
     this.couponCode = options.couponCode;
   },
+  mounted() {
+    this.calcScrollHeight();
+  },
   methods: {
+    calcScrollHeight() {
+      const { windowHeight, statusBarHeight } = uni.getSystemInfoSync();
+      this.scrollHeight = `calc(${windowHeight - statusBarHeight}px - 88rpx)`; // 减去导航栏高度
+    },
     submit() {
       if (!this.couponCode) {
         return uni.showToast({
@@ -46,14 +58,17 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.entering {
+.container {
+  position: relative;
+  min-height: 800rpx;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
   border-top-left-radius: 24rpx;
   border-top-right-radius: 24rpx;
   background: #fff;
   padding: 32rpx 48rpx;
+  height: 600rpx;
   .title {
     font-family: PingFang SC;
     font-weight: 600;

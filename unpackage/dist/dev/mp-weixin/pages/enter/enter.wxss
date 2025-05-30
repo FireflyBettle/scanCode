@@ -24,38 +24,41 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.entering.data-v-56600f10 {
+.container.data-v-56600f10 {
+  position: relative;
+  min-height: 800rpx;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
   border-top-left-radius: 24rpx;
   border-top-right-radius: 24rpx;
   background: #fff;
   padding: 32rpx 48rpx;
+  height: 600rpx;
 }
-.entering .title.data-v-56600f10 {
+.container .title.data-v-56600f10 {
   font-family: PingFang SC;
   font-weight: 600;
   font-size: 40rpx;
 }
-.entering .input.data-v-56600f10 {
+.container .input.data-v-56600f10 {
   margin: 80rpx 0 40rpx;
   font-family: Inter;
   font-weight: 400;
   font-size: 28rpx;
 }
-.entering .input .input-item.data-v-56600f10 {
+.container .input .input-item.data-v-56600f10 {
   border: 2rpx solid #e4e4e7;
   border-radius: 32rpx;
   height: 96rpx;
   line-height: 96rpx;
 }
-.entering .input .input-item input.data-v-56600f10 {
+.container .input .input-item input.data-v-56600f10 {
   height: 96rpx;
   line-height: 96rpx;
   padding-left: 24rpx;
 }
-.entering .button.data-v-56600f10 {
+.container .button.data-v-56600f10 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -65,3 +68,4 @@
   color: #fff;
   font-size: 28rpx;
 }
+

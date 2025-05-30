@@ -24,7 +24,9 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.status.data-v-c9a1ccf4 {
+.container.data-v-c9a1ccf4 {
+  position: relative;
+  min-height: 800rpx;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -33,47 +35,49 @@
   background: #fff;
   padding: 32rpx 48rpx;
 }
-.status-title.data-v-c9a1ccf4 {
+.container .status-title.data-v-c9a1ccf4 {
   font-family: PingFang SC;
   font-size: 40rpx;
   font-weight: 600;
 }
-.status-amount.data-v-c9a1ccf4 {
+.container .status-amount.data-v-c9a1ccf4 {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   margin: 80rpx 0;
-}
-.status-amount ._span.data-v-c9a1ccf4 {
-  font-size: 32rpx;
-}
-.status-amount .amount.data-v-c9a1ccf4 {
   font-size: 64rpx;
   font-weight: 600;
 }
-.status-amount .des.data-v-c9a1ccf4 {
+.container .status-amount ._span.data-v-c9a1ccf4 {
+  position: relative;
+  bottom: 4rpx;
+  font-size: 32rpx;
+  margin-right: 4rpx;
+  font-weight: normal;
+}
+.container .status-amount .des.data-v-c9a1ccf4 {
   font-size: 32rpx;
 }
-.status-content.data-v-c9a1ccf4 {
+.container .status-content.data-v-c9a1ccf4 {
   display: flex;
   justify-content: center;
   flex-direction: column;
   margin-bottom: 80rpx;
 }
-.status-content ._li.data-v-c9a1ccf4 {
+.container .status-content ._li.data-v-c9a1ccf4 {
   display: flex;
   justify-content: space-between;
   font-size: 28rpx;
   margin-bottom: 24rpx;
 }
-.status-content ._li .name.data-v-c9a1ccf4 {
+.container .status-content ._li .name.data-v-c9a1ccf4 {
   color: rgba(0, 0, 0, 0.45);
 }
-.status-content ._li .des.data-v-c9a1ccf4 {
+.container .status-content ._li .des.data-v-c9a1ccf4 {
   color: rgba(0, 0, 0, 0.85);
 }
-.status .button.data-v-c9a1ccf4 {
+.container .button.data-v-c9a1ccf4 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -84,10 +88,11 @@
   font-size: 28rpx;
   margin-bottom: 40rpx;
 }
-.status .gray.data-v-c9a1ccf4 {
+.container .gray.data-v-c9a1ccf4 {
   background: rgba(212, 212, 216, 0.4);
   color: black;
 }
-.status .grayDes.data-v-c9a1ccf4 {
+.container .grayDes.data-v-c9a1ccf4 {
   color: rgba(0, 0, 0, 0.45);
 }
+

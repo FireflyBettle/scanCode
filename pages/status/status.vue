@@ -1,61 +1,72 @@
 <template>
-  <div class="status">
-    <div class="status-title">{{ couponName }}</div>
-    <div class="status-amount">
-      <div>
-        <span :class="isGrayColor ? 'grayDes' : ''">¥</span>
-        <span :class="['amount', isGrayColor ? 'grayDes' : '']">{{ amount }}</span>
+  <div>
+    <custom-navbar :title="title" />
+    <scroll-view scroll-y class="scroll-view" :style="{ height: scrollHeight }">
+      <div class="container">
+        <template v-if="couponName">
+          <div class="status-title">{{ couponName }}</div>
+          <div class="status-amount" :class="isGrayColor ? 'grayDes' : ''">
+            <div>
+              <span>¥</span>
+              {{ amount }}
+            </div>
+            <div class="des">
+              {{ statusDes }}
+            </div>
+          </div>
+          <ul class="status-content">
+            <li>
+              <div class="name">当前状态</div>
+              <div class="des">{{ statusDes }}</div>
+            </li>
+            <li v-if="!operate">
+              <div class="name">核销时间</div>
+              <div class="des">{{ checkTime }}</div>
+            </li>
+            <li v-if="!operate">
+              <div class="name">流水号</div>
+              <div class="des">{{ tx_no }}</div>
+            </li>
+            <li v-if="operate">
+              <div class="name">过期时间</div>
+              <div class="des">{{ expireTime }}</div>
+            </li>
+            <li>
+              <div class="name">券码</div>
+              <div class="des">{{ couponCode }}</div>
+            </li>
+            <li>
+              <div class="name">商户名称</div>
+              <div class="des">{{ merchantName }}</div>
+            </li>
+            <li>
+              <div class="name">商户ID</div>
+              <div class="des">{{ merchantId }}</div>
+            </li>
+            <li v-if="!operate">
+              <div class="name">核销门店</div>
+              <div class="des">{{ storeName }}</div>
+            </li>
+            <li v-if="!operate">
+              <div class="name">门店ID</div>
+              <div class="des">{{ storeId }}</div>
+            </li>
+          </ul>
+          <template v-if="operate">
+            <div v-if="status === 0" class="button sure" @click="verify">
+              核销
+            </div>
+            <div v-if="status === 0" class="button gray canel" @click="cancel">
+              取消
+            </div>
+            <div v-if="status === 1" class="button gray back" @click="back">
+              <span style="margin-right: 7rpx">返回</span
+              ><span v-if="time">({{ time }}) </span>
+            </div>
+          </template>
+        </template>
       </div>
-      <div :class="['des', isGrayColor ? 'grayDes' : '']">{{ statusDes }}</div>
-    </div>
-    <ul class="status-content">
-      <li>
-        <div class="name">当前状态</div>
-        <div class="des">{{ statusDes }}</div>
-      </li>
-      <li v-if="!operate">
-        <div class="name">核销时间</div>
-        <div class="des">{{ checkTime }}</div>
-      </li>
-      <li v-if="!operate">
-        <div class="name">流水号</div>
-        <div class="des">{{ tx_no }}</div>
-      </li>
-      <li v-if="operate">
-        <div class="name">过期时间</div>
-        <div class="des">{{ expireTime }}</div>
-      </li>
-      <li>
-        <div class="name">券码</div>
-        <div class="des">{{ couponCode }}</div>
-      </li>
-      <li>
-        <div class="name">商户名称</div>
-        <div class="des">{{ merchantName }}</div>
-      </li>
-      <li>
-        <div class="name">商户ID</div>
-        <div class="des">{{ merchantId }}</div>
-      </li>
-      <li v-if="!operate">
-        <div class="name">核销门店</div>
-        <div class="des">{{ storeName }}</div>
-      </li>
-      <li v-if="!operate">
-        <div class="name">门店ID</div>
-        <div class="des">{{ storeId }}</div>
-      </li>
-    </ul>
-    <template v-if="operate">
-      <div v-if="status === 0" class="button sure" @click="verify">核销</div>
-      <div v-if="status === 0" class="button gray canel" @click="cancel">
-        取消
-      </div>
-      <div v-if="status === 1" class="button gray back" @click="back">
-        <span style="margin-right: 7rpx">返回</span
-        ><span v-if="time">({{ time }}) </span>
-      </div>
-    </template>
+    </scroll-view>
   </div>
 </template>
 
@@ -78,19 +89,37 @@ export default {
       statusDes: "",
       time: "",
       operate: false,
+      scrollHeight: 500, // 根据窗口动态计算更佳
     };
   },
   computed: {
     isGrayColor() {
-      return !this.operate && this.status === 2;
-    }
+      return !this.operate && this.status === 1;
+    },
   },
   onLoad(options) {
     this.operate = options.operate;
     this.couponCode = options.couponCode;
     this.getInitData(options.couponCode);
   },
+  computed: {
+    title() {
+      if (!this.operate) return "核销记录";
+      if (this.status === 2) return "核销结果";
+      return "优惠券核销";
+    },
+    isGrayColor() {
+      return !this.operate && this.status === 2;
+    },
+  },
+  mounted() {
+    this.calcScrollHeight();
+  },
   methods: {
+    calcScrollHeight() {
+      const { windowHeight, statusBarHeight } = uni.getSystemInfoSync();
+      this.scrollHeight = `calc(${windowHeight - statusBarHeight}px - 88rpx)`; // 减去导航栏高度
+    },
     getInitData(couponCode) {
       request
         .coupon({
@@ -142,7 +171,7 @@ export default {
         });
     },
     cancel() {
-      uni.navigateBack()
+      uni.navigateBack();
       return;
     },
     back() {
@@ -155,7 +184,9 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.status {
+.container {
+  position: relative;
+  min-height: 800rpx;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -163,29 +194,31 @@ export default {
   border-top-right-radius: 24rpx;
   background: #fff;
   padding: 32rpx 48rpx;
-  &-title {
+  .status-title {
     font-family: PingFang SC;
     font-size: 40rpx;
     font-weight: 600;
   }
-  &-amount {
+  .status-amount {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     margin: 80rpx 0;
+    font-size: 64rpx;
+    font-weight: 600;
     span {
+      position: relative;
+      bottom: 4rpx;
       font-size: 32rpx;
-    }
-    .amount {
-      font-size: 64rpx;
-      font-weight: 600;
+      margin-right: 4rpx;
+      font-weight: normal;
     }
     .des {
       font-size: 32rpx;
     }
   }
-  &-content {
+  .status-content {
     display: flex;
     justify-content: center;
     flex-direction: column;

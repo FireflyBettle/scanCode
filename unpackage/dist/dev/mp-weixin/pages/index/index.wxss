@@ -1,11 +1,4 @@
 @charset "UTF-8";
-/* 去除默认的内外边距 */
-/* 设置全局字体 */
-page.data-v-57280228 { 
-  font-family: Arial, sans-serif; 
-  font-size: 14px; 
-  color: #333;
-}
 /**
  * 这里是uni-app内置的常用样式变量
  *
@@ -31,12 +24,44 @@ page.data-v-57280228 {
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+/* 去除默认的内外边距 */
+/* 设置全局字体 */
+page.data-v-57280228 { 
+  font-family: Arial, sans-serif; 
+  font-size: 14px; 
+  color: #333;
+}
 .login .header.data-v-57280228 {
   width: 750rpx;
   background: #1b6fe3;
 }
 .login .header image.data-v-57280228 {
   width: 750rpx;
+}
+.login .logo.data-v-57280228 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 360rpx;
+  width: 100%;
+}
+.login .logo image.data-v-57280228 {
+  width: 242rpx;
+}
+.login .logo .des.data-v-57280228 {
+  margin-top: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 600;
+  font-size: 34rpx;
+  color: #fff;
+}
+.login .logo .des .name.data-v-57280228 {
+  margin-right: 14rpx;
+}
+.login .scroll-view.data-v-57280228 {
+  overflow-anchor: none;
 }
 .login .container.data-v-57280228 {
   padding: 32rpx 48rpx;
@@ -45,7 +70,6 @@ page.data-v-57280228 {
   font-size: 28rpx;
   background: #fff;
   position: relative;
-  margin-top: 400rpx;
 }
 .login .title.data-v-57280228 {
   font-size: 40rpx;
@@ -66,8 +90,17 @@ page.data-v-57280228 {
 .login .input-item input.data-v-57280228 {
   width: 100%;
   padding: 20rpx;
-  border: 2rpx solid #ccc;
-  border-radius: 10rpx;
+  border: 2rpx solid #e4e4e7;
+  border-radius: 24rpx;
+}
+.login .input-item input.data-v-57280228:focus {
+  width: 100%;
+  padding: 20rpx;
+  border: 2rpx solid #11181c;
+  border-radius: 24rpx;
+}
+.login .input-item input.focus.data-v-57280228 {
+  border: 2rpx solid #11181c;
 }
 .login button.data-v-57280228 {
   display: flex;
@@ -85,3 +118,4 @@ page.data-v-57280228 {
   font-size: 28rpx;
   cursor: pointer;
 }
+
