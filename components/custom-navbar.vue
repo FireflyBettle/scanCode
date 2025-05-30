@@ -2,7 +2,7 @@
  * @Author: chenyourong
  * @Date: 2025-05-30 09:48:15
  * @LastEditors: chenyourong
- * @LastEditTime: 2025-05-30 15:58:35
+ * @LastEditTime: 2025-05-30 18:18:47
  * @Description: 
  * @FilePath: /scanCode/components/custom-navbar.vue
 -->
@@ -65,6 +65,7 @@ export default {
     const { top, height } = wx.getMenuButtonBoundingClientRect();
     // 自定义导航栏高度 = 胶囊高度 + 胶囊的padding*2, 如果获取不到设置为38
     this.barHeight = height ? height + (top - statusBarHeight) * 2 : 38;
+      // 参考内容学习链接 https://juejin.cn/post/7076705501764911118
   },
   methods: {
     handleBack() {

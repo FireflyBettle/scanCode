@@ -181,6 +181,7 @@ var _default =
     wx.getMenuButtonBoundingClientRect(),top = _wx$getMenuButtonBoun.top,height = _wx$getMenuButtonBoun.height;
     // 自定义导航栏高度 = 胶囊高度 + 胶囊的padding*2, 如果获取不到设置为38
     this.barHeight = height ? height + (top - statusBarHeight) * 2 : 38;
+    // 参考内容学习链接 https://juejin.cn/post/7076705501764911118
   },
   methods: {
     handleBack: function handleBack() {
