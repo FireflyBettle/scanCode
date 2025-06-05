@@ -2,7 +2,7 @@
  * @Author: chenyourong
  * @Date: 2022-09-26 17:07:46
  * @LastEditors: chenyourong
- * @LastEditTime: 2025-05-30 17:31:41
+ * @LastEditTime: 2025-06-05 17:20:51
  * @Description: 
  * @FilePath: /scanCode/api/request.js
  */
@@ -37,7 +37,8 @@ export function service(options = {}) {
 		//成功
 		options.success = (res) => {
       uni.hideLoading();
-      if (res.data.code === 1003) {
+      // if (res.data.code === 1003) {
+      if ([1002,1003].includes(res.data.code)) {
         setTimeout(() => {
           uni.reLaunch({
             url: "/pages/index/index",
@@ -70,7 +71,7 @@ export function service(options = {}) {
 		options.fail = (err) => {
 			uni.hideLoading();
 			uni.showToast({
-				title: '请求超时',
+				title: err.data.msg,
 				icon: 'none',
 				duration: 2000
 			})

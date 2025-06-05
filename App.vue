@@ -23,5 +23,6 @@
 	.uni-page-head__title {
 	  color: transparent !important; /* 隐藏原标题 */
 	}
+  
 
 	</style>

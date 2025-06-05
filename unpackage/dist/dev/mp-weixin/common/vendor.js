@@ -9305,7 +9305,7 @@ var _config = _interopRequireDefault(__webpack_require__(/*! ./config */ 21));fu
                                                                                                                                                          * @Author: chenyourong
                                                                                                                                                          * @Date: 2022-09-26 17:07:46
                                                                                                                                                          * @LastEditors: chenyourong
-                                                                                                                                                         * @LastEditTime: 2025-05-30 17:31:41
+                                                                                                                                                         * @LastEditTime: 2025-06-05 17:20:51
                                                                                                                                                          * @Description: 
                                                                                                                                                          * @FilePath: /scanCode/api/request.js
                                                                                                                                                          */ // let server_url = '';  //请求根路径（服务器地址）
@@ -9328,7 +9328,8 @@ function service() {var options = arguments.length > 0 && arguments[0] !== undef
     //成功
     options.success = function (res) {
       uni.hideLoading();
-      if (res.data.code === 1003) {
+      // if (res.data.code === 1003) {
+      if ([1002, 1003].includes(res.data.code)) {
         setTimeout(function () {
           uni.reLaunch({
             url: "/pages/index/index" });
@@ -9361,7 +9362,7 @@ function service() {var options = arguments.length > 0 && arguments[0] !== undef
     options.fail = function (err) {
       uni.hideLoading();
       uni.showToast({
-        title: '请求超时',
+        title: err.data.msg,
         icon: 'none',
         duration: 2000 });
 
@@ -9385,7 +9386,7 @@ function service() {var options = arguments.length > 0 && arguments[0] !== undef
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var baseUrl = "";
 if (true) {
   console.log("-------development--------, ", 'development');
-  baseUrl = 'http://www.jifeng.online:8872'; // 开发环境
+  baseUrl = 'http://www.qflmqft.com:8080'; // 开发环境
 } else {}var _default =
 
 baseUrl;exports.default = _default;
