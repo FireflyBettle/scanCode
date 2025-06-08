@@ -35,7 +35,7 @@ export default {
     title: String,
     bgImage: {
       type: String,
-      default: "/static/bac.jpg",
+      default: "/static/bac.png",
     },
     titleColor: {
       type: String,

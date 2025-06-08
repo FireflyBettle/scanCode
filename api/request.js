@@ -71,7 +71,8 @@ export function service(options = {}) {
 		options.fail = (err) => {
 			uni.hideLoading();
 			uni.showToast({
-				title: err.data.msg,
+				// title: err.data.msg,
+				title: '请求失败，请稍后再试',
 				icon: 'none',
 				duration: 2000
 			})

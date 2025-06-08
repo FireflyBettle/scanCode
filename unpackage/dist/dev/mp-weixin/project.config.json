@@ -1,19 +1,18 @@
 {
   "description": "项目配置文件。",
   "packOptions": {
-    "ignore": [],
-    "include": []
+    "ignore": []
   },
   "setting": {
     "urlCheck": false,
-    "babelSetting": {
-      "ignore": [],
-      "disablePlugins": [],
-      "outputPath": ""
-    }
+    "es6": false,
+    "postcss": false,
+    "minified": false,
+    "newFeature": true,
+    "bigPackageSizeSupport": true
   },
   "compileType": "miniprogram",
-  "libVersion": "3.8.6",
+  "libVersion": "",
   "appid": "wx441793eeacb0bcb7",
   "projectname": "scanCode",
   "condition": {
@@ -33,9 +32,5 @@
       "current": -1,
       "list": []
     }
-  },
-  "editorSetting": {
-    "tabIndent": "insertSpaces",
-    "tabSize": 2
   }
 }
