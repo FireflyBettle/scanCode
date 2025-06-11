@@ -1,11 +1,4 @@
 @charset "UTF-8";
-/* 去除默认的内外边距 */
-/* 设置全局字体 */
-page.data-v-57280228 { 
-  font-family: Arial, sans-serif; 
-  font-size: 14px; 
-  color: #333;
-}
 /**
  * 这里是uni-app内置的常用样式变量
  *
@@ -31,6 +24,13 @@ page.data-v-57280228 {
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+/* 去除默认的内外边距 */
+/* 设置全局字体 */
+page.data-v-57280228 { 
+  font-family: Arial, sans-serif; 
+  font-size: 14px; 
+  color: #333;
+}
 .login .header.data-v-57280228 {
   width: 750rpx;
   background: #1b6fe3;
@@ -118,3 +118,4 @@ page.data-v-57280228 {
   font-size: 28rpx;
   cursor: pointer;
 }
+
