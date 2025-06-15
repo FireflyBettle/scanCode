@@ -120,7 +120,7 @@ export default {
       const { windowHeight, statusBarHeight } = uni.getSystemInfoSync();
       this.scrollHeight = `calc(${windowHeight - statusBarHeight}px - 88rpx)`; // 减去导航栏高度
     },
-    getInitData(couponCode) {
+    getInitData(couponCode, success) {
       request
         .coupon({
           couponCode,
@@ -145,30 +145,47 @@ export default {
           this.status = +data.status;
           this.amount = data.amount / 100;
           this.statusDes = statusObj[+data.status];
+          if (success) {
+            uni.showToast({
+              title: "核销成功",
+              icon: "success",
+              duration: 3000
+            });
+          }
         });
     },
     verify() {
-      request
-        .verify({
-          couponCode: this.couponCode,
-        })
-        .then((res) => {
-          this.getInitData(this.couponCode);
-          uni.showToast({
-            title: "核销成功",
-            icon: "success",
-          });
-          this.time = 5;
-          const timer = setInterval(() => {
-            if (this.time === 0) {
-              clearInterval(timer);
-              uni.reLaunch({
-                url: `/pages/main/main`,
+      uni.showModal({
+        title: "",
+        content: "您确定核销吗？",
+        confirmText: "确定",
+        cancelText: "取消",
+        success: (res) => {
+          if (res.confirm) {
+            request
+              .verify({
+                couponCode: this.couponCode,
+              })
+              .then((res) => {
+                this.getInitData(this.couponCode, true);
+                this.time = 5;
+                const timer = setInterval(() => {
+                  if (this.time === 0) {
+                    clearInterval(timer);
+                    uni.reLaunch({
+                      url: `/pages/main/main`,
+                    });
+                  }
+                  this.time--;
+                }, 1000);
               });
-            }
-            this.time--;
-          }, 1000);
-        });
+            // 执行确认后的操作
+          } else if (res.cancel) {
+            console.log(" 用户点击取消");
+            // 执行取消后的操作
+          }
+        },
+      });
     },
     cancel() {
       uni.navigateBack();
@@ -183,7 +200,7 @@ export default {
 };
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .container {
   position: relative;
   min-height: 800rpx;

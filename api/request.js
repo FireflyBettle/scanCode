@@ -50,6 +50,11 @@ export function service(options = {}) {
           duration: 2000
         })
       }
+	  if (res.data.code === -500) return uni.showToast({
+        title: '请输入有效的券码',
+        icon: 'none',
+        duration: 2000
+      })
       if (res.data.code != 0) return uni.showToast({
         title: res.data.msg,
         icon: 'none',

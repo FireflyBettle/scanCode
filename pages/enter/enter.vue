@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import * as request from "@/api/api.js";
 export default {
   data() {
     return {
@@ -36,11 +37,26 @@ export default {
   },
   mounted() {
     this.calcScrollHeight();
+    if (this.couponCode) {
+      this.initData();
+    }
   },
   methods: {
     calcScrollHeight() {
       const { windowHeight, statusBarHeight } = uni.getSystemInfoSync();
       this.scrollHeight = `calc(${windowHeight - statusBarHeight}px - 88rpx)`; // 减去导航栏高度
+    },
+    initData() {
+      request
+        .coupon({
+          couponCode: this.couponCode,
+          // couponCode: "252900000003",
+        })
+        .then((res) => {
+          uni.navigateTo({
+            url: `/pages/status/status?operate=true&couponCode=${this.couponCode}`,
+          });
+        });
     },
     submit() {
       if (!this.couponCode) {
@@ -49,15 +65,22 @@ export default {
           icon: "error",
         });
       }
-      uni.navigateTo({
-        url: `/pages/status/status?operate=true&couponCode=${this.couponCode}`,
-      });
+      request
+        .coupon({
+          couponCode: this.couponCode,
+          // couponCode: "252900000003",
+        })
+        .then((res) => {
+          uni.navigateTo({
+            url: `/pages/status/status?operate=true&couponCode=${this.couponCode}`,
+          });
+        });
     },
   },
 };
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .container {
   position: relative;
   min-height: 800rpx;
