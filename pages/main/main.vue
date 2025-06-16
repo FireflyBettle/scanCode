@@ -129,9 +129,19 @@ export default {
         success: (res) => {
           this.couponCode = res.result; // 将扫码结果赋值给 couponCode
           console.log(" 扫描成功，券码为: ", this.couponCode);
-          uni.navigateTo({
-            url: `/pages/enter/enter?couponCode=${this.couponCode}`,
+          request
+          .coupon({
+            couponCode: this.couponCode,
+          })
+          .then((res) => {
+            uni.navigateTo({
+              url: `/pages/status/status?operate=true&couponCode=${this.couponCode}`,
+            });
           });
+          // uni.navigateTo({
+          //   // url: `/pages/status/status?operate=true&couponCode=${this.couponCode}`,
+          //   url: `/pages/enter/enter?couponCode=${this.couponCode}`,
+          // });
           // 这里可以添加后续处理逻辑，比如验证券码的有效性等
         },
         fail: (err) => {
