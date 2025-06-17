@@ -2,7 +2,7 @@
  * @Author: chenyourong
  * @Date: 2025-05-27 16:50:32
  * @LastEditors: chenyourong
- * @LastEditTime: 2025-05-30 17:24:49
+ * @LastEditTime: 2025-06-17 18:39:34
  * @Description: 
  * @FilePath: /scanCode/pages/index/index.vue
 -->
@@ -44,6 +44,7 @@
         </form>
       </view>
     </scroll-view>
+    <Toast ref="toast" />
   </div>
 </template>
 
@@ -92,6 +93,7 @@ export default {
       },
       fail: (err) => {
         console.error(" 登录失败:", err);
+        return this.$refs.toast.show('登录失败');
         uni.showToast({ title: "登录失败", icon: "none" });
       },
     });
@@ -107,11 +109,12 @@ export default {
     onSubmit() {
       // 简单的表单验证
       if (!this.phone || !this.passwd) {
-        uni.showToast({
-          title: "账号和密码不能为空",
-          icon: "none",
-        });
-        return;
+        return this.$refs.toast.show('账号和密码不能为空');
+        // uni.showToast({
+        //   title: "账号和密码不能为空",
+        //   icon: "none",
+        // });
+        // return;
       }
 
       request
@@ -121,13 +124,17 @@ export default {
           passwd: md5.hex_md5(md5.hex_md5(this.passwd)),
         })
         .then((res) => {
+          if (res.code !== 0) {
+            return this.$refs.toast.show(res.msg);
+          }
           const { data, code } = res;
           if (code === 0) {
             uni.setStorageSync("token", data.token);
-            uni.showToast({
-              title: "登录成功",
-              icon: "success",
-            });
+            this.$refs.toast.show('登录成功');
+            // uni.showToast({
+            //   title: "登录成功",
+            //   icon: "success",
+            // });
             // uni.setTimeout
             setTimeout(() => {
               uni.reLaunch({

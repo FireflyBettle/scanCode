@@ -2,7 +2,7 @@
  * @Author: chenyourong
  * @Date: 2025-05-28 15:38:41
  * @LastEditors: chenyourong
- * @LastEditTime: 2025-05-30 17:58:49
+ * @LastEditTime: 2025-06-17 18:33:28
  * @Description: 
  * @FilePath: /scanCode/pages/main/main.vue
 -->
@@ -50,6 +50,7 @@
         </div>
       </div>
     </scroll-view>
+    <Toast ref="toast" />
   </div>
 </template>
 
@@ -83,6 +84,9 @@ export default {
     },
     getInitData() {
       request.storeDetail().then((res) => {
+        if (res.code !== 0) {
+          return this.$refs.toast.show(res.msg);
+        }
         const { data } = res;
         this.name = data.name;
         this.currAmount = data.currAmount / 100;
@@ -93,6 +97,9 @@ export default {
           pageSize: 10,
         })
         .then((res) => {
+          if (res.code !== 0) {
+            return this.$refs.toast.show(res.msg);
+          }
           const { data } = res;
           const status = {
             0: "待核销",
@@ -130,14 +137,17 @@ export default {
           this.couponCode = res.result; // 将扫码结果赋值给 couponCode
           console.log(" 扫描成功，券码为: ", this.couponCode);
           request
-          .coupon({
-            couponCode: this.couponCode,
-          })
-          .then((res) => {
-            uni.navigateTo({
-              url: `/pages/status/status?operate=true&couponCode=${this.couponCode}`,
+            .coupon({
+              couponCode: this.couponCode,
+            })
+            .then((res) => {
+              if (res.code !== 0) {
+                return this.$refs.toast.show(res.msg);
+              }
+              uni.navigateTo({
+                url: `/pages/status/status?operate=true&couponCode=${this.couponCode}`,
+              });
             });
-          });
           // uni.navigateTo({
           //   // url: `/pages/status/status?operate=true&couponCode=${this.couponCode}`,
           //   url: `/pages/enter/enter?couponCode=${this.couponCode}`,
@@ -145,11 +155,7 @@ export default {
           // 这里可以添加后续处理逻辑，比如验证券码的有效性等
         },
         fail: (err) => {
-          console.error(" 扫码失败: ", err);
-          uni.showToast({
-            title: "扫码失败，请重试",
-            icon: "none",
-          });
+          return this.$refs.toast.show(res.msg);
         },
       });
     },

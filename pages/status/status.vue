@@ -3,7 +3,7 @@
     <custom-navbar :title="title" />
     <scroll-view scroll-y class="scroll-view" :style="{ height: scrollHeight }">
       <div class="container">
-        <template v-if="couponName">
+        <template v-if="couponCode">
           <div class="status-title">{{ couponName }}</div>
           <div class="status-amount" :class="isGrayColor ? 'grayDes' : ''">
             <div>
@@ -67,6 +67,7 @@
         </template>
       </div>
     </scroll-view>
+    <Toast ref="toast" />
   </div>
 </template>
 
@@ -106,13 +107,14 @@ export default {
     title() {
       if (!this.operate) return "核销记录";
       if (this.status === 2) return "核销结果";
-      return "优惠券核销";
+      return "券码核销";
     },
     isGrayColor() {
       return !this.operate && this.status === 2;
     },
   },
   mounted() {
+    // this.$refs.toast.show('年纪大凯撒年纪大凯撒')
     this.calcScrollHeight();
   },
   methods: {
@@ -127,6 +129,16 @@ export default {
           // couponCode: "252900000003",
         })
         .then((res) => {
+          // if (res.code !== 0) {
+          //   return uni.showToast({
+          //     title: res.msg,
+          //     icon: "none",
+          //     duration: 2000,
+          //   });
+          // }
+          if (res.code !== 0) {
+            return this.$refs.toast.show(res.msg);
+          }
           const { data } = res;
           const statusObj = {
             0: "待核销",
@@ -146,10 +158,11 @@ export default {
           this.amount = data.amount / 100;
           this.statusDes = statusObj[+data.status];
           if (success) {
+            return this.$refs.toast.show('核销成功');
             uni.showToast({
               title: "核销成功",
               icon: "success",
-              duration: 3000
+              duration: 3000,
             });
           }
         });
@@ -167,6 +180,9 @@ export default {
                 couponCode: this.couponCode,
               })
               .then((res) => {
+                if (res.code !== 0) {
+                  return this.$refs.toast.show(res.msg);
+                }
                 this.getInitData(this.couponCode, true);
                 this.time = 5;
                 const timer = setInterval(() => {

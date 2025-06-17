@@ -2,7 +2,7 @@
  * @Author: chenyourong
  * @Date: 2025-05-28 16:25:26
  * @LastEditors: chenyourong
- * @LastEditTime: 2025-05-30 16:45:14
+ * @LastEditTime: 2025-06-17 18:17:12
  * @Description: 
  * @FilePath: /scanCode/pages/enter/enter.vue
 -->
@@ -20,16 +20,23 @@
         <div class="button" @click="submit">确认</div>
       </div>
     </scroll-view>
+    <Toast ref="toast" />
   </div>
 </template>
 
 <script>
 import * as request from "@/api/api.js";
+import Toast from "@/components/toast.vue";
+
 export default {
+  components: {
+    Toast,
+  },
   data() {
     return {
       couponCode: "",
       scrollHeight: 500, // 根据窗口动态计算更佳
+      visible: false,
     };
   },
   onLoad(options) {
@@ -53,6 +60,9 @@ export default {
           // couponCode: "252900000003",
         })
         .then((res) => {
+          if (res.code !== 0) {
+            return this.$refs.toast.show(res.msg);
+          }
           uni.navigateTo({
             url: `/pages/status/status?operate=true&couponCode=${this.couponCode}`,
           });
@@ -60,10 +70,11 @@ export default {
     },
     submit() {
       if (!this.couponCode) {
-        return uni.showToast({
-          title: "请输入优惠券码",
-          icon: "error",
-        });
+        return this.$refs.toast.show('请输入优惠券码');
+        // return uni.showToast({
+        //   title: "请输入优惠券码",
+        //   icon: "none",
+        // });
       }
       request
         .coupon({
@@ -71,6 +82,9 @@ export default {
           // couponCode: "252900000003",
         })
         .then((res) => {
+          if (res.code !== 0) {
+            return this.$refs.toast.show(res.msg);
+          }
           uni.navigateTo({
             url: `/pages/status/status?operate=true&couponCode=${this.couponCode}`,
           });
@@ -81,6 +95,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/* 通用方案 */
+.uni-toast__content {
+  font-size: 38px !important;
+}
 .container {
   position: relative;
   min-height: 800rpx;

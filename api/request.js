@@ -2,7 +2,7 @@
  * @Author: chenyourong
  * @Date: 2022-09-26 17:07:46
  * @LastEditors: chenyourong
- * @LastEditTime: 2025-06-05 17:20:51
+ * @LastEditTime: 2025-06-17 18:35:55
  * @Description: 
  * @FilePath: /scanCode/api/request.js
  */
@@ -55,11 +55,12 @@ export function service(options = {}) {
         icon: 'none',
         duration: 2000
       })
-      if (res.data.code != 0) return uni.showToast({
-        title: res.data.msg,
-        icon: 'none',
-        duration: 2000
-      })
+      // if (res.data.code != 0) return uni.showToast({
+      //   title: res.data.msg,
+      //   icon: 'none',
+      //   duration: 2000
+      // })
+      
 			// if (Number(res.data.code) == 0) { //请求成功
       resolved(res.data);//请求成功时返回接口数据
 			// } else {
