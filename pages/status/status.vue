@@ -144,6 +144,8 @@ export default {
             0: "待核销",
             1: "已核销",
             2: "冲正",
+            3: "已取消",
+            4: "已过期",
           };
           this.couponName = data.couponName;
           this.expireTime = data.expireTime;

@@ -11,10 +11,10 @@
     <custom-navbar title="录入核销" />
     <scroll-view scroll-y class="scroll-view" :style="{ height: scrollHeight }">
       <div class="container">
-        <div class="title">优惠券</div>
+        <div class="title">券码</div>
         <div class="input">
           <view class="input-item">
-            <input v-model="couponCode" placeholder="请输入优惠券码" />
+            <input v-model="couponCode" placeholder="请输入券码" />
           </view>
         </div>
         <div class="button" @click="submit">确认</div>

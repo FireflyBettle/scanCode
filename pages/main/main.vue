@@ -9,7 +9,16 @@
 <template>
   <div class="home">
     <custom-navbar title="企福通" :showLogo="true" :showBack="false" />
-    <scroll-view scroll-y class="scroll-view" :style="{ height: scrollHeight }">
+    <scroll-view
+      scroll-y
+      class="scroll-view"
+      :lower-threshold="50"
+      :refresher-enabled="true"
+      @refresherrefresh="onRefresh"
+      @scrolltolower="loadMore"
+      :refresher-triggered="isRefreshing"
+      :style="{ height: scrollHeight }"
+    >
       <div class="container">
         <div class="home-header">
           <div class="title">{{ name }}</div>
@@ -49,6 +58,10 @@
           </ul>
         </div>
       </div>
+      <!-- 加载状态提示 -->
+      <view class="loading-text">
+        {{ moreDes }}
+      </view>
     </scroll-view>
     <Toast ref="toast" />
   </div>
@@ -64,7 +77,20 @@ export default {
       currAmount: "",
       recordList: [],
       scrollHeight: 500, // 根据窗口动态计算更佳
+      loading: false,
+      noMore: false, // 是否无更多数据
+      pageNum: 0,
+      isRefreshing: false, // 是否正在刷新 
     };
+  },
+  computed: {
+    moreDes() {
+      return this.noMore
+        ? "没有更多数据了"
+        : this.loading
+        ? "加载中..."
+        : "上拉加载更多";
+    },
   },
   created() {
     // if (!uni.getStorageSync("token")) {
@@ -82,18 +108,26 @@ export default {
       const { windowHeight, statusBarHeight } = uni.getSystemInfoSync();
       this.scrollHeight = `calc(${windowHeight - statusBarHeight}px - 88rpx)`; // 减去导航栏高度
     },
-    getInitData() {
-      request.storeDetail().then((res) => {
-        if (res.code !== 0) {
-          return this.$refs.toast.show(res.msg);
-        }
-        const { data } = res;
-        this.name = data.name;
-        this.currAmount = data.currAmount / 100;
-      });
+    onRefresh() {
+      this.isRefreshing  = true; // 进入刷新状态
+      this.noMore = false; // 重置无更多数据状态
+      this.loading = false; // 重置加载状态
+      this.recordList = []; // 清空记录列表
+      this.pageNum = 0; // 重置页码
+      this.getDataList();
+    },
+    // 滚动触底加载
+    loadMore() {
+      if (!this.noMore) {
+        this.getDataList();
+      }
+    },
+    getDataList() {
+      if (this.noMore || this.loading) return;
+      this.loading = true;
       request
         .list({
-          pageNum: 0,
+          pageNum: this.pageNum,
           pageSize: 10,
         })
         .then((res) => {
@@ -105,13 +139,37 @@ export default {
             0: "待核销",
             1: "已核销",
             2: "冲正",
+            3: "已取消",
+            4: "已过期",
           };
+          this.isRefreshing  = false;
+          if (data.list === null) {
+            this.noMore = true;
+            return;
+          }
           data.list.forEach((val) => {
             val.amount = val.amount ? val.amount / 100 : 0;
             val.statusDes = status[val.status];
           });
-          this.recordList = data.list;
+          // this.recordList = data.list;
+
+          // 合并数据（第一页直接覆盖，后续追加）
+          this.recordList =
+            this.pageNum === 0 ? data.list : [...this.recordList, ...data.list];
+          this.pageNum++;
+          this.loading = false;
         });
+    },
+    getInitData() {
+      request.storeDetail().then((res) => {
+        if (res.code !== 0) {
+          return this.$refs.toast.show(res.msg);
+        }
+        const { data } = res;
+        this.name = data.name;
+        this.currAmount = data.currAmount / 100;
+      });
+      this.getDataList();
     },
     jumpEntering() {
       uni.navigateTo({
@@ -163,7 +221,7 @@ export default {
 };
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .home {
   .scroll-view {
     .container {
@@ -177,6 +235,11 @@ export default {
       border-top-right-radius: 24rpx;
       background: #fff;
       padding: 32rpx 48rpx;
+    }
+    .loading-text {
+      text-align: center;
+      padding: 20rpx;
+      color: #999;
     }
   }
   &-header {
@@ -279,6 +342,7 @@ export default {
           .status {
             font-size: 28rpx;
             color: rgba(0, 0, 0, 0.45);
+            text-align: right;
           }
         }
       }
